@@ -1,0 +1,40 @@
+version: "3.9"
+services:
+  apache:
+    build: ./Docker/apache
+    container_name: apache
+    ports:
+      - "8000:80"
+    links: 
+      [php]
+    volumes:
+      - "./Docker/php-fpm/sock:/var/run/php-fpm"
+      - "./src:/usr/local/apache2/htdocs" 
+
+  php:
+    build: ./Docker/php-fpm
+    container_name: php
+    volumes:
+      - "./Docker/php-fpm/sock:/var/run/php-fpm"
+      - "./src:/var/www/html"
+    links:
+      [mysql]
+    environment:
+      - PHP_DOCUMENT_ROOT=/var/www/html
+  
+
+  mysql:
+    build: ./Docker/mysql
+    container_name: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=BookSearchApp
+
+  phpmyadmin:
+    build: ./Docker/phpmyadmin
+    ports:
+      - "3306:80"
+    environment:
+      - PMA_HOST=mysql
+    links:
+      [mysql]
