@@ -22,7 +22,6 @@ services:
     environment:
       - PHP_DOCUMENT_ROOT=/var/www/html
   
-
   mysql:
     build: ./Docker/mysql
     container_name: mysql
@@ -32,6 +31,7 @@ services:
 
   phpmyadmin:
     build: ./Docker/phpmyadmin
+    container_name: phpmyadmin
     ports:
       - "3306:80"
     environment:
