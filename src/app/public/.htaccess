@@ -1,4 +1,4 @@
-<IfModule mod_rewrite>
+<IfModule rewrite_module>
     <IfModule mod_negotiation>
         Options -MultiViews -Indexes
     </IfModule>
@@ -20,5 +20,3 @@
     RewriteRule ^ index.php [L]
     
 </IfModule>
-    
-ErrorDocument 404 https://google.com
