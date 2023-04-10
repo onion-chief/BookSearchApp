@@ -4,7 +4,7 @@ export class Book {
         this._authors = authors ?? [];
         this._description = description ?? '';
         this._infoLink = infoLink ?? '';
-        this._smallThumbnail = smallThumbnail ?? '';
+        this._smallThumbnail = smallThumbnail ?? '/img/noimage.png';
     }
 
     get title() {
