@@ -12,7 +12,7 @@ class GoogleBooksAPIFacade
 
         $query['q'] = urlencode($keyword);
         $query['maxResults'] = 10;
-        $query['startIndex'] = 10 * $page;
+        $query['startIndex'] = 10 * ($page - 1);
         $endPoint = "https://www.googleapis.com/books/v1/volumes";
         
         $response = Http::get($endPoint, $query);

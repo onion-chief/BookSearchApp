@@ -1,43 +1,27 @@
-import { startTransition, useEffect, useState } from 'react';
+import { useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import * as React from 'react';
 import styles from './top.module.scss';
-import { BookTable } from './components/BookTable';
-import { BackendClient } from './common/BackendClient';
+import classNames from 'classnames';
+import { SearchBooksTab } from './components/SearchBooksTab/SearchBooksTab';
+import { ShowHistoriesTab } from './components/ShowHistoriesTab/ShowHistoriesTab';
+
+const Tab = {
+    SearchBooks: 0,
+    ShowHistory: 1
+};
 
 export const Top = () => {
-    const [pageNum, setPageNum] = useState(1);
-    const [keyword, setKeyword] = useState('');
-    const [searchPageNum, setSearchPageNum] = useState(null);
-    const [searchKeyword, setSearchKeyword] = useState('');
-
-    const onClickSearch = async () => {
-        setPageNum(1);
-        setSearchKeyword(keyword);
-    };
-
-    const onTransitionPage = (pageNum) => {
-        setPageNum(pageNum++);
-    }
+    const [selectedTab, setSelectedTab] = useState(Tab.SearchBooks);
 
     return (
         <div class={styles.top}>
-            <div class={styles.top_inner}>
-                <div class={styles.search_input_block}>
-                    <div class={styles.search}>
-                        <div class={styles.title}>書籍名</div>
-                        <div class={styles.input_text_block}>
-                            <input type="text" value={keyword} onChange={(e) => setKeyword(e.target.value)}></input>
-                        </div>
-                        <div class={styles.btn_block}>
-                            <button onClick={onClickSearch}>検索</button>
-                        </div>
-                    </div>
-                </div>
-                <div class={styles.result_contents_block}>
-                    <BookTable keyword={searchKeyword} pageNum={pageNum} onTransitionPage={onTransitionPage}></BookTable>
-                </div>
+            <div class={styles.tab_list}>
+                <div className={classNames(styles.tab, {[styles.selected]: selectedTab == Tab.SearchBooks})} onClick={() => setSelectedTab(Tab.SearchBooks)}>書籍検索</div>
+                <div className={classNames(styles.tab, {[styles.selected]: selectedTab == Tab.ShowHistory})} onClick={() => setSelectedTab(Tab.ShowHistory)}>検索履歴</div>
             </div>
+            <SearchBooksTab isShow={selectedTab == Tab.SearchBooks}></SearchBooksTab>
+            <ShowHistoriesTab isShow={selectedTab == Tab.ShowHistory}></ShowHistoriesTab>
         </div>
     );
 };

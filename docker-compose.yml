@@ -21,6 +21,7 @@ services:
       [mysql]
     environment:
       - PHP_DOCUMENT_ROOT=/var/www/html
+    working_dir: /var/www/html/app
   
   mysql:
     build: ./Docker/mysql
@@ -38,3 +39,4 @@ services:
       - PMA_HOST=mysql
     links:
       [mysql]
+    

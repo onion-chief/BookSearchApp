@@ -15,7 +15,8 @@ use App\Http\Controllers\Api\APIController;
 |
 */
 Route::namespace('Api')->group(function (){
-    Route::get('/search', 'APIController@search');
+    Route::post('/search', 'APIController@search');
+    Route::get('/history', 'APIController@getHistory');
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

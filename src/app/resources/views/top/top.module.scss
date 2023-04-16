@@ -1,6 +1,6 @@
 body {
     height: auto;
-    min-height: 100vh;
+    min-height: 100%;
     .loaders_container {
         padding: 20px;
         margin: 0 auto;
@@ -35,72 +35,65 @@ body {
     .top {
         height: 100%;
         padding: 0px 200px;
-        .top_inner {
-            background-color: darksalmon;
-            height: 100%;
-            min-height: 100vh;
-            padding: 0px 30px;
-            padding-bottom: 20px;
-            .search_input_block {
-                height: fit-content;
-                padding-top: 20px;
-                .search {
-                    height: 50px;
-                    display: flex;
-                    align-items: center;
-                    .title {
-                        display: flex;
-                        padding: 0px 20px;
-                        background-color: #fc9;
-                        height: 100%;
-                        align-items: center;
-                        padding: 0px 20px;
-                        border-radius: 50px 0px 0px 50px;
-                        justify-content: center;
-                        width: 120px;
-                    }
-                    .input_text_block {
-                        display: flex;
-                        align-items: center;
-                        padding: 10px;
-                        height: 100%;
-                        width: 100%;
-                        background-color: white;
-                        input[type="text"] {
-                            height: 100%;
-                            outline: none;
-                            width: 100%;
-                            padding: 10px 0px;
-                        } 
-                    }
-                    .btn_block {
-                        width: 100px;
-                        height: 100%;
-                        background-color: white;
-                        border-radius: 0px 50px 50px 0px;
-                        button {
-                            margin: 5px;
-                            border-radius: 50px;
-                            background-color: #000;
-                            color: white;
-                            height: calc(100% - 10px);
-                            width: calc(100% - 10px);
-                        }
-                    }
-
+        position: relative;
+        .tab_list {
+            display: flex;
+            margin-top: 10px;
+            .tab {
+                width: 50%;
+                text-align: center;
+                background-color: white;
+                border-radius: 10px 10px 0px 0px;
+                border: 1px solid #333;
+                padding: 10px;
+                &.selected {
+                    background-color: #e9967a;
+                    border: none;
                 }
             }
-            .result_contents_block {
-                padding-top: 20px;
+        }
+
+        .modal_wrapper {
+            height: 100vh;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 32;
+            overscroll-behavior: contain;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #3339;
+
+            .modal {
+                z-index: 15;
+                width: 80%;
+                height: 80%;
+                margin: auto;
+                position: fixed;
+                background: white;
+                border-radius: 50px;
+                overflow-y: scroll;
+                overscroll-behavior: contain;
                 .book_table {
                     width: 100%;
                     table-layout: fixed;
                     margin-bottom: 20px;
                     tr {
                         border: 1px solid #000;
+                        border-left: none;
+                        border-right: none;
                         height: 100px;
                         &:nth-child(1) {
+                            position: sticky;
+                            border: none;
+                            border-bottom: 1px solid #000;
                             height: 50px;
+                            top: 0;
+                            background: white;
                         }
                         th{ 
                             &:nth-child(1) {
@@ -159,6 +152,9 @@ body {
                     }        
                 }
                 .btns_block {
+                    position: sticky;
+                    bottom: 0;
+                    background: white;
                     text-align: center;
                     .current_page {
                         padding: 0px 20px;
@@ -172,6 +168,211 @@ body {
                         border: 1px solid #000;
                         border-radius: 5px;
                         background: white;
+                    }
+                }
+            }
+        }
+
+        .top_inner {
+            background-color: darksalmon;
+            height: 100%;
+            min-height: 100vh;
+            padding: 0px 30px;
+            padding-bottom: 20px;
+
+            &.search_books_tab {
+                .search_input_block {
+                    height: fit-content;
+                    padding-top: 20px;
+                    .search {
+                        height: 50px;
+                        display: flex;
+                        align-items: center;
+                        .title {
+                            display: flex;
+                            padding: 0px 20px;
+                            background-color: #fc9;
+                            height: 100%;
+                            align-items: center;
+                            padding: 0px 20px;
+                            border-radius: 50px 0px 0px 50px;
+                            justify-content: center;
+                            width: 120px;
+                        }
+                        .input_text_block {
+                            display: flex;
+                            align-items: center;
+                            padding: 10px;
+                            height: 100%;
+                            width: 100%;
+                            background-color: white;
+                            input[type="text"] {
+                                height: 100%;
+                                outline: none;
+                                width: 100%;
+                                padding: 10px 0px;
+                            } 
+                        }
+                        .btn_block {
+                            width: 100px;
+                            height: 100%;
+                            background-color: white;
+                            border-radius: 0px 50px 50px 0px;
+                            button {
+                                margin: 5px;
+                                border-radius: 50px;
+                                background-color: #000;
+                                color: white;
+                                height: calc(100% - 10px);
+                                width: calc(100% - 10px);
+                            }
+                        }
+    
+                    }
+                }
+                .result_contents_block {
+                    padding-top: 20px;
+                    .book_table {
+                        width: 100%;
+                        table-layout: fixed;
+                        margin-bottom: 20px;
+                        tr {
+                            border: 1px solid #000;
+                            height: 100px;
+                            &:nth-child(1) {
+                                height: 50px;
+                            }
+                            th{ 
+                                &:nth-child(1) {
+                                    width: 50px;
+                                }
+                                &:nth-child(2) {
+                                    width: 100px;
+                                }
+                                &:nth-child(3) {
+                                    width: 100px;
+                                }
+                                &:nth-child(4) {
+                                    width: 100px;
+                                }
+                                &:nth-child(5) {
+                                    width: 100px;
+                                }
+                            }
+                            td {
+                                padding: 5px;
+                                &:nth-child(1) {
+                                    img {
+                                        margin:5px;
+                                        display: block;
+                                        width: 50px;
+                                        height: 50px;
+                                    }
+                                }
+                                &:nth-child(2) {
+                                    p {
+                                        display: -webkit-box;
+                                        overflow: hidden;
+                                        -webkit-box-orient: vertical;
+                                        -webkit-line-clamp: 4;
+                                    }
+                                }
+                                &:nth-child(4) {
+                                    p {
+                                        display: -webkit-box;
+                                        overflow: hidden;
+                                        -webkit-box-orient: vertical;
+                                        -webkit-line-clamp: 4;
+                                    }
+                                }
+                                &:nth-child(5) {
+                                    p {
+                                        text-overflow: ellipsis;
+                                        white-space: nowrap;
+                                        overflow: hidden;
+                                        a {
+                                            color: #0000EE;
+                                        }
+                                    }
+                                }
+                            }
+                        }        
+                    }
+                    .btns_block {
+                        text-align: center;
+                        .current_page {
+                            padding: 0px 20px;
+                        }
+                        .prev_btn, .next_btn {
+                            &:disabled {
+                                border: 1px solid #AAA;
+                                color: #AAA;
+                            }
+                            padding: 5px 10px;
+                            border: 1px solid #000;
+                            border-radius: 5px;
+                            background: white;
+                        }
+                    }
+                }
+            }
+            &.show_histories_tab {
+                .header {
+                    padding-top: 20px;
+                    text-align: right;
+                    button {
+                        padding: 5px 50px;
+                        border-radius: 10px;
+                        background: black;
+                        color: white;
+                    }
+                }
+                .result_contents_block {
+                    padding-top: 20px;
+                    .book_table {
+                        width: 100%;
+                        table-layout: fixed;
+                        margin-bottom: 20px;
+                        tr {
+                            border: 1px solid #000;
+                            height: 100px;
+                            &:nth-child(1) {
+                                height: 50px;
+                            }
+                            th{ 
+                                &:nth-child(1) {
+                                    width: 100px;
+                                }
+                                &:nth-child(2) {
+                                    width: 50px;
+                                }
+                            }
+                            td {
+                                padding: 5px;
+                                &:nth-child(1) {
+                                    padding-left: 20px;
+                                }
+                                &:nth-child(2) {
+                                    text-align: center;
+                                }
+                            }
+                        }        
+                    }
+                    .btns_block {
+                        text-align: center;
+                        .current_page {
+                            padding: 0px 20px;
+                        }
+                        .prev_btn, .next_btn {
+                            &:disabled {
+                                border: 1px solid #AAA;
+                                color: #AAA;
+                            }
+                            padding: 5px 10px;
+                            border: 1px solid #000;
+                            border-radius: 5px;
+                            background: white;
+                        }
                     }
                 }
             }
