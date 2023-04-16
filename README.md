@@ -1,5 +1,5 @@
 # BookSearchApp
-株式会社シグナイト様の技術課題です
+技術課題用
 
 # 開発環境
 OS：MacOS Ventura13.2
